@@ -1,0 +1,38 @@
+// Pulled in when required via ./src/fonts.ts
+
+// Imports the fonts from goog
+$fontList: (
+    aldrich: (urlCode: "Aldrich"),
+    alegreya: (urlCode: "Alegreya+Sans:wght@300"),
+	bitter: (urlCode: "Bitter"),
+	cairo: (urlCode: "Cairo:wght@200;300"),
+    exo: (urlCode: "Exo"),
+    exo2: (urlCode: "Exo+2:wght@600"),
+	heebo: (urlCode: "Heebo"),
+    inter: (urlCode: "Inter"),
+    lobster: (urlCode: "Lobster"),
+    majorMono: (urlCode: "Major+Mono+Display"),
+	mukta: (urlCode: "Mukta"),
+	offside: (urlCode: "Offside"),
+    orbitron: (urlCode: "Orbitron"),
+    poppins: (urlCode: "Poppins"),
+	ptMono: (urlCode: "PT+Mono"),
+    rajdhani: (urlCode: "Rajdhani"),
+    raleway: (urlCode: "Raleway"),
+    vibur: (urlCode: "Vibur"),
+);
+
+$str: "https://fonts.googleapis.com/css2?";
+$i: 0;
+@each $font, $map in $fontList {
+    @if $i == 0 {
+        $str: $str + "family=";
+    } @else {
+        $str: $str + "&family=";
+    }
+
+    $str: $str + map-get($map, urlCode);
+    $i: $i + 1;
+}
+
+@import url(#{ $str } + "&display=swap");
