@@ -1,26 +1,30 @@
-# dependencies
+# DEPS
 /node_modules
-	
-# production
+/.pnp
+.pnp.js
+
+# TESTING
+/coverage
+
+# PROD
 /build
 
-# debug
+# MISC
+.DS_Store
+*.pem
+
+# DEBUG
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# testing
-/coverage
-
-# local ENV items
+# ENV
+.env*
+.env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# sec
-.DS_Store
-*.pem
-
-# parcel
-/.parcel-cache
+# TYPESCRIPT
+*.tsbuildinfo
