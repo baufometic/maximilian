@@ -1,116 +1,92 @@
 /* eslint-disable no-console */
-import { SetStateAction, useEffect, useState } from "react";
-import { Log } from "../base/log";
+import { useEffect, useState } from "react";
+import { Log, OBJ } from "../index";
 
-// * Pixel values
-const __breakpoints__ = {
-	mobileS  : "320px",
-	mobileM  : "375px",
-	mobileL  : "425px",
-	tablet   : "768px",
-	desktopS : "1024px",
-	desktopM : "1440px",
-	desktopL : "2560px",
+const queryList = {
+	xs            : "(max-width: 576px)", // <
+	s             : "(min-width: 576px)", // >=
+	m             : "(min-width: 768px)", // >=
+	l             : "(min-width: 992px)", // >=
+	xl            : "(min-width: 1200px)", // >=
+	xxl           : "(min-width: 1400px)", // >=
+	desktop_S     : "(min-width: 1024px)", // >=
+	desktop_M     : "(min-width: 1440px)", // >=
+	desktop_L     : "(min-width: 2560px)", // >=
+	portrait      : "(orientation: portrait)",
+	landscape     : "(orientation: landscape)",
+	mobile        : "only screen and (hover: none) and (pointer: coarse)",
+	motionReduced : "(prefers-reduced-motion: no-preference)",
 };
 
-// * Generate string type media queries based on pixel values
-const __strings__ = {
-	a_mobileS       : "(min-width: " + __breakpoints__.mobileS + ")",
-	b_mobileM       : "(min-width: " + __breakpoints__.mobileM + ")",
-	c_mobileL       : "(min-width: " + __breakpoints__.mobileL + ")",
-	d_tablet        : "(min-width: " + __breakpoints__.tablet + ")",
-	e_desktopS      : "(min-width: " + __breakpoints__.desktopS + ")",
-	f_desktopM      : "(min-width: " + __breakpoints__.desktopM + ")",
-	g_desktopL      : "(min-width: " + __breakpoints__.desktopL + ")",
-	isMobile        : "only screen and (hover: none) and (pointer: coarse)",
-	isMotionReduced : "(prefers-reduced-motion: no-preference)",
-	isPortrait      : "(orientation: portrait)",
-	isLandscape     : "(orientation: landscape)",	
+type T_obj = {
+	[key in keyof typeof queryList]: {
+		isActive: boolean;
+		AddEventListener: () => void;
+		RemoveEventListener: () => void;
+	};
 };
 
-type T_mediaQuery = {
-	name: string;
-	value: string;
-	isActive?: boolean;
-};
+interface I_useMediaQueries {
+	(props: {
+		verbose?: boolean;
+	}): [ T_obj ];
+}
 
-const mediaQueriesObj: T_mediaQuery[] = [
-	{
-		name  : "isPortrait",
-		value : __strings__.isPortrait,
-	},
-	{
-		name  : "isLandscape",
-		value : __strings__.isLandscape,
-	},
-	{
-		name  : "isMobile",
-		value : __strings__.isMobile,
-	},
-	{
-		name  : "isMotionReduced",
-		value : __strings__.isMotionReduced,
-	},
-	{
-		name  : "isSmall",
-		value : `${ __strings__.a_mobileS }, ${ __strings__.b_mobileM }, ${ __strings__.c_mobileL }`,
-	},
-	{
-		name  : "isLarge",
-		value : `${ __strings__.d_tablet }, ${ __strings__.e_desktopS }, ${ __strings__.f_desktopM }, ${ __strings__.g_desktopL }`,
-	}
-];
-
-const togglers: (() => void)[] = []; // * just an array of functions
-
-type T_setStateFunction = {
-	(...args: [value: SetStateAction<T_mediaQuery[]>] | [arg0: T_mediaQuery[]]): void;
-};
-
-const AttachEventListeners = (setStateFunction: T_setStateFunction): void => {
-	for (const query of mediaQueriesObj) {
-		query.isActive = false;
-
-		const ToggleIsActive = (e: MediaQueryListEvent) => {
-			query.isActive = e.matches;
-			setStateFunction(mediaQueriesObj);
-		};
-		
-		// * Make it easier to loop remove them
-		const RemoveFunction = () => (window.matchMedia(query.value).removeEventListener("change", ToggleIsActive));
-		togglers.push(RemoveFunction);
-
-		try { window.matchMedia(query.value).addEventListener("change", ToggleIsActive); }
-		catch(e) { throw new Error(`Unable to add '${ query.name }' event listener in useMediaQuery`); }
-	}
-};
-
-const RemoveEventListeners = () => {
-	for (const toggler of togglers) toggler();
-};
-
-// TODO basically rebuitl this - test it asap inside of TT next app
-export const useMediaQueries = () => {
-	const [ mediaQueries, setMediaQueries ] = useState<T_mediaQuery[]>(mediaQueriesObj);
+export const useMediaQueries: I_useMediaQueries = ({ verbose=true }) => {
+	const [ state, setState ] = useState({} as T_obj);
 	
 	useEffect(() => {
-		// * Can't be done in initial use State as it requires window
-		AttachEventListeners(setMediaQueries); // * pass in the setState for updating mediaQueries outside of this scope
+		//* INTIALISE STATE AS WINDOW EXISTS NOW
+		const obj = {} as T_obj;
 
+		setState(() => {
+			OBJ.Keys(queryList).forEach(key => {
+				const Updater = (e: MediaQueryListEvent): void => {
+					setState(prev => ({
+						...prev,
+						[key]: {
+							...prev[ key ],
+							isActive: e.matches,
+						},
+					}));
+				};
+
+				obj[key] = {
+					isActive         : window.matchMedia(queryList[key]).matches,
+					AddEventListener : function() {
+						window.matchMedia(queryList[key]).addEventListener("change", Updater);
+						Log.EventListenerAdded(queryList[key]);
+					},
+					RemoveEventListener: function() {
+						window.matchMedia(queryList[key]).removeEventListener("change", Updater);
+						Log.EventListenerRemoved(queryList[key]);
+					},
+				};
+			});
+			
+			return obj;
+		});
+
+		//* Initialise event listeners
+		OBJ.Keys(obj).forEach(key => obj[key].AddEventListener());
 		return () => {
-			RemoveEventListeners();
+			OBJ.Keys(obj).forEach(key => (obj[key].RemoveEventListener()));
 		};
 	}, []);
 
 	useEffect(() => {
-		console.log(JSON.stringify(mediaQueries, null, 4));
-	}, [ mediaQueries ]);
+		verbose && Log.StateChange(
+			JSON.stringify(state, null, 3),
+			"useMediaQueries"
+		);
+	}, [ state, verbose ]);
 
-	Log.Render("useMediaQueries");
-	return { mediaQueries };
+	return [
+		state,
+	];
 };
-/*================================================================================
 
-END OF FILE
-
-================================================================================*/
+export const Media = (...queriesToCombine: Array<keyof typeof queryList>) => {
+	if (!queriesToCombine.length) throw new Error("[GetQuery] no queries passed in");
+	return `@media screen and ${ queriesToCombine.map(query => queryList[query]).join(" and ") }`;
+};

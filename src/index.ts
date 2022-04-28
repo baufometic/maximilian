@@ -1,44 +1,73 @@
-// * BASE
-export { Random } from "./base/generators";
-export { Log } from "./base/log";
-export { MATH } from "./base/math";
-export { OBJ } from "./base/objects";
-export { STR } from "./base/strings";
-export { Time } from "./base/time";
+//*____________________ ANIMATION ____________________
+export {
+	animations
+} from "./animation";
 
-// * COMPONENTS
-export { Buttons } from "./components/buttons";
+//*____________________ BASE ____________________
+export {
+	Random,
+	MakeObservablePro,
+	Log,
+	MATH,
+	OBJ,
+	STR,
+	Time,
+} from "./base";
 
-// * HOOKS
-export { useComponent } from "./hooks/useComponent";
-export { useForcedRerender } from "./hooks/useForcedRerender";
-export { useIntersectionObserver } from "./hooks/useIntersectionObserver";
-export { useMediaQueries } from "./hooks/useMediaQueries";
-export { useMousePosition } from "./hooks/useMousePosition";
-export { useEngagement, useOptimisation, useSplitTesting } from "./hooks/usePerformance";
-export { useSensors } from "./hooks/useSensors";
-export { useWindowSize } from "./hooks/useWindowSize";
+//*____________________ BROWSER ____________________
+export {
+	SetFullScreen,
+	Storage,
+	ToggleFullScreen
+} from "./browser";
 
-// * LISTS
-export { carHashtags } from "./lists/carHashtags";
-export { countryCodes } from "./lists/countryCodes";
-export { dictionaryWords } from "./lists/dictionaryWords";
-export { weddingHashtags } from "./lists/weddingHashtags";
+//*____________________ COMPONENTS ____________________
+export {
+	BtnLowPriority,
+	BtnMediumPriority,
+	BtnHighPriority,
+	SVGScarab,
+} from "./components";
 
-// * STYLES
-export { animations } from "./styles/animations";
-export { ColourHelper, LogPalettes, RandomRGBColour, paletteShortcodes, palettes } from "./styles/colour";
-export { fonts, FontGetterComponent } from "./styles/fonts";
-export { GlobalResetComponent } from "./styles/reset";
-export { SASS } from "./styles/styles";
+//*____________________ HOOKS____________________
+export {
+	Media,
+	useComponent,
+	useIntersectionObserver,
+	useMediaQueries,
+	useMousePosition,
+	useRerender,
+	useSensors,
+	useWindowSize
+} from "./hooks";
 
-// * TYPES
-export type { T_lettersLowerCase, T_lettersUpperCase } from "./types/strings";
+//*____________________ LISTS ____________________
+export {
+	carHashtags,
+	countryCodes,
+	cryptoCurrencies,
+	dictionaryWords,
+	weddingHashtags,
+} from "./lists";
 
-// * UTILS
-export { MakeObservable } from "./utils/observers";
-export { ToggleFullScreen, SetFullScreen } from "./utils/screen";
-export { Storage } from "./utils/storage";
+//*____________________ STYLING ____________________
+export {
+	ColourHelper,
+	GlobalResetComponent,
+	LogPalettes,
+	RandomRGBColour,
+	SASS,
+	paletteShortcodes,
+	palettes,
+} from "./styling";
 
-// * WRAPPERS
-export { LifecycleWrapper } from "./wrappers/Lifecycle";
+//*____________________ TYPES ____________________
+export type {
+	T_lettersLowerCase,
+	T_lettersUpperCase
+} from "./types";
+
+//*____________________ WRAPPERS ____________________
+export {
+	LifecycleWrapper
+} from "./wrappers";

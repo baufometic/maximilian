@@ -1,19 +1,14 @@
 import { useEffect, useRef } from "react";
-import { Log } from "../base/log";
-/*================================================================================
-END OF IMPORTS
-================================================================================*/
+import { Log } from "../index";
 
 //const isProd = (process.env.NODE_ENV === "production"); // TODO blocking for production - or limiting logs
 
-type ComponentObject = {
+type T_componentObject = {
 	rawName: string;
 	uniqueName: string;
 	count: number;
 }
-type ComponentArray = Array<ComponentObject>;
-
-const components: ComponentArray = [];
+const components: T_componentObject[] = [];
 
 const IsValidComponentName = (name: string): boolean => {
 	if (name === "") throw new Error("[ComponentManager] componentName passed is empty string");
@@ -24,27 +19,29 @@ END OF COMPONENT NAME CHECKING
 ================================================================================*/
 
 let mountedCount = 0, unmountedCount = 0, overallCount = 0;
-const GetCountStr = () => (`mounted [${mountedCount}] | unmounted [${unmountedCount}] | overall [${overallCount}]`);
+const GetOverallCount = () => (`mnt [${ mountedCount }] | unmnt [${ unmountedCount }] | ovrl [${ overallCount }]`);
 
-type AddComponentProps = {
-	name: string;
-	verbose?: boolean | "true" | "false";
-};
+interface T_addComponent {
+	(props: {
+		name: string;
+		verbose?: boolean | "true" | "false";
+	}): string;
+}
 
-const AddComponent = <T extends AddComponentProps>({ name, verbose=false }: T): string => {
+const AddComponent: T_addComponent = ({ name, verbose }) => {
 	if (!IsValidComponentName(name)) throw new Error("Error setting component name within ComponentManager");
 
 	// * Check if name already exists in the store
 	let count = 0;
 	if (components.findIndex(c => c.rawName === name) !== -1) {
-		const filteredItems: ComponentArray = components.filter(c => c.rawName === name);
+		const filteredItems: T_componentObject[] = components.filter(c => c.rawName === name);
 		const objWithMaxCount = filteredItems.reduce((prev, current) => (prev.count > current.count) ? prev : current);
 		count = objWithMaxCount.count + 1;
 	}
 
-	const obj: ComponentObject = {
+	const obj: T_componentObject = {
 		rawName    : name,
-		uniqueName : `[${count}] ${name}`,
+		uniqueName : `${ name } (${ count })`,
 		count      : count,
 	};
 
@@ -53,48 +50,55 @@ const AddComponent = <T extends AddComponentProps>({ name, verbose=false }: T): 
 	// * Register Mounted
 	mountedCount++;
 	overallCount = mountedCount - unmountedCount;
-	if (verbose) Log.Mounted(obj.uniqueName + "  " + GetCountStr());
+	verbose && Log.Mounted(obj.uniqueName + "  " + GetOverallCount());
 
 	return obj.uniqueName;
 };
 /*================================================================================
-END OF AddComponent
+END OF ADD COMPONENT
 ================================================================================*/
 
-type RemoveComponentProps = {
-	name: string;
-	verbose?: boolean;
-};
+interface I_removeComponent {
+	(props: {
+		name: string;
+		verbose?: boolean;
+	}): void;
+}
 
-const RemoveComponent = <T extends RemoveComponentProps>({ name, verbose=false }: T): void => {
+const RemoveComponent: I_removeComponent = ({ name, verbose }) => {
 	const idx = components.findIndex(c => c.uniqueName === name);
-	if (idx === -1) throw new Error("Error finding idx of componentName to remove in ComponentManager");
-	else verbose && Log.Attempt(`Removing idx [${idx}] in ComponentManager`);
+	if (idx === -1) {
+		throw new Error("Error finding idx of componentName to remove in ComponentManager");
+	} else {
+		verbose && Log.Attempt(`Removing idx [${ idx }] in ComponentManager`);
+	}
 
 	components.splice(idx, 1);
 
 	// * Register Unmounted
 	unmountedCount++;
 	overallCount = mountedCount - unmountedCount;
-	if (verbose) Log.Unmounted(name + "  " + GetCountStr());
+	verbose && Log.Unmounted(name + "  " + GetOverallCount());
 };
 /*================================================================================
 END OF RemoveComponent
 ================================================================================*/
 
-type useComponentProps = {
-	name: string,
-	verbose?: boolean,
-	onMountFunction?: () => unknown,
-	onUnmountFunction?: () => unknown,
-};
+interface I_useComponent {
+	(props: {
+		name: string;
+		verbose?: boolean;
+		onMountFunction?: () => unknown;
+		onUnmountFunction?: () => unknown;
+	}): void;
+}
 
-export const useComponent = <T extends useComponentProps>({ name, verbose=false, onMountFunction, onUnmountFunction }: T): void => {
+export const useComponent: I_useComponent = ({ name, verbose=true, onMountFunction, onUnmountFunction }) => {
 	const myName = useRef<string>("");
 
 	useEffect(() => {
-		Log.Testing("Calling from useComponent initial []. I SHOULD NOT LOG MORE THAN ONCE!!");
 		myName.current = AddComponent({ name, verbose });
+		Log.Success(`useComponent initialised from component: ${ myName.current }`);
 		if (typeof onMountFunction === "function") onMountFunction();
 
 		return () => {
@@ -103,11 +107,7 @@ export const useComponent = <T extends useComponentProps>({ name, verbose=false,
 		};
 	}, [ name, verbose, onMountFunction, onUnmountFunction ]);
 
-	useEffect(() => (Log.Render(myName.current)));
+	useEffect(() => {
+		verbose && Log.Render(myName.current);
+	});
 };
-/*================================================================================
-
-END OF FILE
-
-================================================================================*/
-
