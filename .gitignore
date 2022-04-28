@@ -8,6 +8,7 @@
 
 # PROD
 /build
+.parcel-cache
 
 # MISC
 .DS_Store
