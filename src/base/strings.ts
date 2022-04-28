@@ -2,7 +2,7 @@ import { Random } from "./generators";
 
 const STR = {
 	CapitaliseFirstLetter : (pStr: string): string => (pStr.charAt(0).toUpperCase() + pStr.slice(1)),
-	Rearrange: (pStr: string): string => {
+	Rearrange             : (pStr: string): string => {
 		const array = pStr.split("");
 		let str = "";
 		while (array.length > 0) {

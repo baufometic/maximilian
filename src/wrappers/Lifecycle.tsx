@@ -1,19 +1,17 @@
-import React, { ReactNode } from "react";
 import { useComponent } from "../hooks/useComponent";
 
 interface I_LifecycleWrapper {
 	(props: {
+		disableRenderLogging?: boolean;
 		name: string;
 		verbose?: boolean;
-		children?: ReactNode;
+		children?: React.ReactNode;
 	}): JSX.Element;
 }
 
 /** Wraps around any component and enables lifecycle tracking */
-const LifecycleWrapper: I_LifecycleWrapper = ({ name, verbose=false, ...props }) => {
+export const LifecycleWrapper: I_LifecycleWrapper = ({ name, verbose=true, ...props }) => {
+	// TODO add method to return immediately if prod
 	useComponent({ name, verbose });
-
 	return <>{ props.children }</>;
 };
-
-export { LifecycleWrapper };
