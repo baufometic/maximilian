@@ -1,4 +1,4 @@
-import { css } from "styled-components";
+import { css } from "styled-components"
 
 const SASS = {
 	//*____________________ SIZING ____________________
@@ -31,12 +31,12 @@ const SASS = {
 		noOfColumns: number;
 		noOfRows: number;
 	}) => {
-		if (noOfRows <= 0 || noOfColumns <= 0) throw new RangeError("[SASS > Grid > CreateFixed] Passed params are outside outside range");
+		if (noOfRows <= 0 || noOfColumns <= 0) throw new RangeError("[SASS > Grid > CreateFixed] Passed params are outside outside range")
 		return (css`
 			display: grid;
 			grid-template-rows: repeat(${ noOfRows }, 1fr);
 			grid-template-columns: repeat(${ noOfColumns }, 1fr);
-		`);
+		`)
 	},
 	/**
 	 * Append item to a CSS3 grid.
@@ -52,11 +52,11 @@ const SASS = {
 		spanHeight: number;
 		spanWidth: number;
 	}) => {
-		if (row < 0 || column < 0 || spanHeight <= 0 || spanWidth <= 0) throw new RangeError("[SASS > Grid > Append] Passed params are outside outside range");
+		if (row < 0 || column < 0 || spanHeight <= 0 || spanWidth <= 0) throw new RangeError("[SASS > Grid > Append] Passed params are outside outside range")
 		return (css`
 			grid-column: ${ column + 1 } / span ${ spanWidth };
 			grid-row: ${ row + 1 } / span ${ spanHeight };
-		`);
+		`)
 	},
 
 	//*____________________ WINDOW MANIPULATION ____________________
@@ -66,8 +66,8 @@ const SASS = {
 			display: none; /* Chrome, Safari and Opera */
 		}
 		-ms-overflow-style: none; /* IE and Edge */
-	`,
-};
+	`
+}
 
-Object.seal(SASS);
-export { SASS };
+Object.seal(SASS)
+export { SASS }

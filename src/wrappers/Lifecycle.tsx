@@ -11,7 +11,6 @@ interface I_LifecycleWrapper {
 
 /** Wraps around any component and enables lifecycle tracking */
 export const LifecycleWrapper: I_LifecycleWrapper = ({ name, verbose=true, ...props }) => {
-	// TODO add method to return immediately if prod
 	useComponent({ name, verbose });
 	return <>{ props.children }</>;
 };

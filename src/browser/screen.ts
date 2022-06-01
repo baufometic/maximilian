@@ -8,9 +8,9 @@ interface FsDocument extends Document {
 }
 
 const IsFullScreen = (): boolean => {
-	const fsDoc = <FsDocument> document;
-	return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement);
-};
+	const fsDoc = <FsDocument> document
+	return !!(fsDoc.fullscreenElement || fsDoc.mozFullScreenElement || fsDoc.webkitFullscreenElement || fsDoc.msFullscreenElement)
+}
 
 interface FsDocumentElement extends HTMLElement {
 	msRequestFullscreen?: () => void;
@@ -19,38 +19,38 @@ interface FsDocumentElement extends HTMLElement {
 }
 
 const ToggleFullScreen = (): void => {
-	const fsDoc = <FsDocument> document;
+	const fsDoc = <FsDocument> document
 
 	if (!IsFullScreen()) {
-		const fsDocElem = <FsDocumentElement> document.documentElement;
+		const fsDocElem = <FsDocumentElement> document.documentElement
 
 		if (fsDocElem.requestFullscreen)
-			fsDocElem.requestFullscreen();
+			fsDocElem.requestFullscreen()
 		else if (fsDocElem.msRequestFullscreen)
-			fsDocElem.msRequestFullscreen();
+			fsDocElem.msRequestFullscreen()
 		else if (fsDocElem.mozRequestFullScreen)
-			fsDocElem.mozRequestFullScreen();
+			fsDocElem.mozRequestFullScreen()
 		else if (fsDocElem.webkitRequestFullscreen)
-			fsDocElem.webkitRequestFullscreen();
+			fsDocElem.webkitRequestFullscreen()
 	}
 	else if (fsDoc.exitFullscreen)
-		fsDoc.exitFullscreen();
+		fsDoc.exitFullscreen()
 	else if (fsDoc.msExitFullscreen)
-		fsDoc.msExitFullscreen();
+		fsDoc.msExitFullscreen()
 	else if (fsDoc.mozCancelFullScreen)
-		fsDoc.mozCancelFullScreen();
+		fsDoc.mozCancelFullScreen()
 	else if (fsDoc.webkitExitFullscreen)
-		fsDoc.webkitExitFullscreen();
-};
+		fsDoc.webkitExitFullscreen()
+}
 
 const SetFullScreen = (full: boolean): void => {
 	if (full !== IsFullScreen())
-		ToggleFullScreen();
-};
+		ToggleFullScreen()
+}
 
-Object.seal(ToggleFullScreen);
-Object.seal(SetFullScreen);
+Object.seal(ToggleFullScreen)
+Object.seal(SetFullScreen)
 export {
 	ToggleFullScreen,
-	SetFullScreen,
-};
+	SetFullScreen
+}

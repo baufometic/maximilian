@@ -14,7 +14,7 @@
 	"ignorePatterns": [
 		".env",
 		"**/node_modules/**",
-		"**/build/*"
+		"**/dist/*"
 	],
 	"parserOptions": {
 		"ecmaFeatures": {
@@ -46,6 +46,10 @@
 		"array-bracket-spacing": [
 			"error",
 			"always"
+		],
+		"comma-dangle": [
+			"error",
+			"never"
 		],
 		"indent": [
 			"error",

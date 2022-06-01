@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Log } from "../index";
-
-//const isProd = (process.env.NODE_ENV === "production"); // TODO blocking for production - or limiting logs
+import { Log } from "../base/log";
 
 type T_componentObject = {
 	rawName: string;
@@ -42,7 +40,7 @@ const AddComponent: T_addComponent = ({ name, verbose }) => {
 	const obj: T_componentObject = {
 		rawName    : name,
 		uniqueName : `${ name } (${ count })`,
-		count      : count,
+		count      : count
 	};
 
 	components.push(obj);

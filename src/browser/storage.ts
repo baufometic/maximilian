@@ -10,7 +10,6 @@ const InitCheckpoint = () => {
 	return true;
 };
 
-// TODO check console log for web storage initialisation
 const InitialiseMain = () => {
 	Log.Attempt("Initialising web storage");
 	const storageAvailable = (type: "localStorage" | "sessionStorage"): boolean | undefined => {
@@ -64,7 +63,7 @@ const History: History = {
 	},
 	get lastItemAdded() {
 		return this.items[this.items.length - 1];
-	},
+	}
 };
 
 type storageTypes = "sessionStorage" | "localStorage";
@@ -105,7 +104,7 @@ const Actions: Actions = {
 			Log.Warning(`[${ storageType }] Item not found: ${ item }`);
 			return "";
 		}
-	},
+	}
 };
 
 //Record<"Session" | "Local", { methods }>;
@@ -133,15 +132,15 @@ const Storage: Storage = {
 	Local: {
 		Add    : (item, data) => { Actions.AddItem("localStorage", item, data); },
 		Remove : (item) => { Actions.RemoveItem("localStorage", item); },
-		Get    : (item) => Actions.RetrieveItem("localStorage", item),
+		Get    : (item) => Actions.RetrieveItem("localStorage", item)
 	},
 
 	// * SESSION STORAGE: Lost when tab is closed
 	Session: {
 		Add    : (item, data) => { Actions.AddItem("sessionStorage", item, data); },
 		Remove : (item) => { Actions.RemoveItem("sessionStorage", item); },
-		Get    : (item) => Actions.RetrieveItem("sessionStorage", item),
-	},
+		Get    : (item) => Actions.RetrieveItem("sessionStorage", item)
+	}
 };
 
 Object.seal(Storage);

@@ -15,7 +15,7 @@ const REACT_STYLE = (colour: string) => `
 const REGULAR_STYLE = (colour: string) => `
 	${ __BASE_STYLE };
 	background-color: black;
-	color: limegreen;
+	color: ${ colour };
 `;
 
 const Log = {
@@ -28,7 +28,6 @@ const Log = {
 			const [ key, value ] = entry;
 			return `[${ idx }] [${ key }]  ${ value }`;
 		}).join("\n ");
-
 		console.log("%c" + str, "background-color: black; color: violet;");
 	},
 
@@ -106,7 +105,7 @@ const Log = {
 	},
 	Unmounted: (str: string): void => {
 		console.log("%c[Unmounted]         " + str, REACT_STYLE("orange"));
-	},
+	}
 };
 
 Object.seal(Log);

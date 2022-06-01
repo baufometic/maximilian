@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components"
 
 export const GlobalResetComponent = createGlobalStyle<{ appContainer: string }>`
 	${ ({ appContainer }) => appContainer } {
@@ -360,4 +360,4 @@ export const GlobalResetComponent = createGlobalStyle<{ appContainer: string }>`
 	[hidden] {
 		display: none;
 	}
-`;
+`

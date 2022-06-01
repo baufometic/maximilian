@@ -41,7 +41,7 @@ const ColourHelper = {
 				return {
 					r : arr[0],
 					g : arr[1],
-					b : arr[2],
+					b : arr[2]
 				};
 			},
 			ToRGBA: function(str: T_rgbString, alpha: number): T_rgbaString {
@@ -78,147 +78,147 @@ const palettes: {
 	/** Original green variations from Matrix 1 */
 	matrix: {
 		a: {
-			rgb: "rgb(13,2,8)",
+			rgb: "rgb(13,2,8)"
 		},
 		b: {
-			rgb: "rgb(0,59,0)",
+			rgb: "rgb(0,59,0)"
 		},
 		c: {
-			rgb: "rgb(0,143,17)",
+			rgb: "rgb(0,143,17)"
 		},
 		d: {
-			rgb: "rgb(0,255,65)",
-		},
+			rgb: "rgb(0,255,65)"
+		}
 	},
 	/** Variation A of synthwave type outrun palette */
 	outrunA: {
 		a: {
-			rgb: "rgb(255,108,17)",
+			rgb: "rgb(255,108,17)"
 		},
 		b: {
-			rgb: "rgb(255,56,100)",
+			rgb: "rgb(255,56,100)"
 		},
 		c: {
-			rgb: "rgb(45,226,230)",
+			rgb: "rgb(45,226,230)"
 		},
 		d: {
-			rgb: "rgb(38,20,71)",
+			rgb: "rgb(38,20,71)"
 		},
 		e: {
-			rgb: "rgb(13,2,33)",
-		},
+			rgb: "rgb(13,2,33)"
+		}
 	},
 	/** Variation B of synthwave type outrun palette */
 	outrunB: {
 		a: {
-			rgb: "rgb(2, 55, 136)",
+			rgb: "rgb(2, 55, 136)"
 		},
 		b: {
-			rgb: "rgb(101, 13, 137)",
+			rgb: "rgb(101, 13, 137)"
 		},
 		c: {
-			rgb: "rgb(146, 0, 117)",
+			rgb: "rgb(146, 0, 117)"
 		},
 		d: {
-			rgb: "rgb(246, 1, 157)",
+			rgb: "rgb(246, 1, 157)"
 		},
 		e: {
-			rgb: "rgb(212, 0, 120)",
-		},
+			rgb: "rgb(212, 0, 120)"
+		}
 	},
 	/** Variation C of synthwave type outrun palette */
 	outrunC: {
 		a: {
-			rgb: "rgb(36, 23, 52)",
+			rgb: "rgb(36, 23, 52)"
 		},
 		b: {
-			rgb: "rgb(46, 33, 87)",
+			rgb: "rgb(46, 33, 87)"
 		},
 		c: {
-			rgb: "rgb(253, 55, 119)",
+			rgb: "rgb(253, 55, 119)"
 		},
 		d: {
-			rgb: "rgb(247, 6, 207)",
+			rgb: "rgb(247, 6, 207)"
 		},
 		e: {
-			rgb: "rgb(253, 29, 83)",
-		},
+			rgb: "rgb(253, 29, 83)"
+		}
 	},
 	/** Variation D of synthwave type outrun palette */
 	outrunD: {
 		a: {
-			rgb: "rgb(249, 200, 14)",
+			rgb: "rgb(249, 200, 14)"
 		},
 		b: {
-			rgb: "rgb(255, 67, 101)",
+			rgb: "rgb(255, 67, 101)"
 		},
 		c: {
-			rgb: "rgb(84, 13, 110)",
+			rgb: "rgb(84, 13, 110)"
 		},
 		d: {
-			rgb: "rgb(121, 30, 148)",
+			rgb: "rgb(121, 30, 148)"
 		},
 		e: {
-			rgb: "rgb(84, 19, 136)",
-		},
+			rgb: "rgb(84, 19, 136)"
+		}
 	},
 	/** Original tech & tribal colour palette */
 	techandtribal: {
 		a: {
-			rgb: "rgb(40, 127, 241)",
+			rgb: "rgb(40, 127, 241)"
 		},
 		b: {
-			rgb: "rgb(247, 6, 207)",
+			rgb: "rgb(247, 6, 207)"
 		},
 		c: {
-			rgb: "rgb(12,20,31)",
+			rgb: "rgb(12,20,31)"
 		},
 		d: {
-			rgb: "rgb(13,2,33)",
+			rgb: "rgb(13,2,33)"
 		},
 		e: {
-			rgb: "rgb(0,255,255)",
-		},
+			rgb: "rgb(0,255,255)"
+		}
 	},
 	/** mostly blues, blacks, whites */
 	tron: {
 		a: {
-			rgb: "rgb(24,202,230)",
+			rgb: "rgb(24,202,230)"
 		},
 		b: {
-			rgb: "rgb(111,195,223)",
+			rgb: "rgb(111,195,223)"
 		},
 		c: {
-			rgb: "rgb(52,96,141)",
+			rgb: "rgb(52,96,141)"
 		},
 		d: {
-			rgb: "rgb(40, 127, 241)",
+			rgb: "rgb(40, 127, 241)"
 		},
 		e: {
-			rgb: "rgb(5,13,16)",
+			rgb: "rgb(5,13,16)"
 		},
 		f: {
-			rgb: "rgb(13,12,28)",
+			rgb: "rgb(13,12,28)"
 		},
 		g: {
-			rgb: "rgb(12,20,31)",
+			rgb: "rgb(12,20,31)"
 		},
 		h: {
-			rgb: "rgb(223,116,12)",
+			rgb: "rgb(223,116,12)"
 		},
 		i: {
-			rgb: "rgb(255,230,77)",
+			rgb: "rgb(255,230,77)"
 		},
 		j: {
-			rgb: "rgb(216,218,231)",
+			rgb: "rgb(216,218,231)"
 		},
 		k: {
-			rgb: "rgb(221, 230, 243)",
+			rgb: "rgb(221, 230, 243)"
 		},
 		l: {
-			rgb: "rgb(230,255,255)",
-		},
-	},
+			rgb: "rgb(230,255,255)"
+		}
+	}
 } as const;
 
 const paletteShortcodes: { [k: string]: T_rgbString; } = {};
@@ -306,7 +306,7 @@ export {
 	LogPalettes,
 	palettes,
 	paletteShortcodes,
-	RandomRGBColour,
+	RandomRGBColour
 };
 /*================================================================================
 

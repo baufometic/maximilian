@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-//let holder: unknown[]; // for storing shit when Iterate function goes recursive
+//let holder: unknown[]; // for storing things when Iterate function goes recursive
 
 type T_entries<T> = {
 	[K in keyof T]: [K, T[K]]
@@ -11,7 +11,7 @@ const OBJ = {
 	HasKey        : <T extends Record<string, unknown>>(obj: T, key: PropertyKey): key is keyof T => (key in obj),
 	IsObject      : <T extends Record<string, unknown>>(obj: T): boolean => (obj.constructor === Object),
 	IsEmpty       : <T extends Record<string, unknown>>(obj: T) => ((Object.entries(obj).length === 0) && (obj.constructor === Object)),
-	Keys          : <T extends Record<string, unknown>>(obj: T): (keyof T)[] => (Object.keys(obj) as any),
+	Keys          : <T extends Record<string, unknown>>(obj: T): (keyof T)[] => (Object.keys(obj) as any)
 
 	// TODO come back later and add bool's to the logging
 	// Iterate: function(objToIterate, ...typesToMatch) {
