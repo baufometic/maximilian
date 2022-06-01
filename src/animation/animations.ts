@@ -1,6 +1,5 @@
-import { keyframes } from "styled-components";
+import { keyframes } from "styled-components"
 
-// TODO make these have variables for timings
 const animations = {
 	flashingText: keyframes`
 		0%, 100% {
@@ -24,7 +23,7 @@ const animations = {
 				0.5vw 0.5vw 0.1vw #0A3940;
 		}
 	`	
-};
+}
 
-Object.seal(animations);
-export { animations };
+Object.seal(animations)
+export { animations }

@@ -1,6 +1,10 @@
 /* eslint-disable no-console */
-import { useEffect, useState } from "react";
-import { Log, OBJ } from "../index";
+import { useEffect, useState } from "react"
+import { Log } from "../base/log"
+import { OBJ } from "../base/objects"
+
+// Function to establish min device size in pixels
+
 
 const queryList = {
 	xs            : "(max-width: 576px)", // <
@@ -15,8 +19,8 @@ const queryList = {
 	portrait      : "(orientation: portrait)",
 	landscape     : "(orientation: landscape)",
 	mobile        : "only screen and (hover: none) and (pointer: coarse)",
-	motionReduced : "(prefers-reduced-motion: no-preference)",
-};
+	motionReduced : "(prefers-reduced-motion: no-preference)"
+}
 
 type T_obj = {
 	[key in keyof typeof queryList]: {
@@ -33,11 +37,11 @@ interface I_useMediaQueries {
 }
 
 export const useMediaQueries: I_useMediaQueries = ({ verbose=true }) => {
-	const [ state, setState ] = useState({} as T_obj);
+	const [ state, setState ] = useState({} as T_obj)
 	
 	useEffect(() => {
 		//* INTIALISE STATE AS WINDOW EXISTS NOW
-		const obj = {} as T_obj;
+		const obj = {} as T_obj
 
 		setState(() => {
 			OBJ.Keys(queryList).forEach(key => {
@@ -46,47 +50,51 @@ export const useMediaQueries: I_useMediaQueries = ({ verbose=true }) => {
 						...prev,
 						[key]: {
 							...prev[ key ],
-							isActive: e.matches,
-						},
-					}));
-				};
+							isActive: e.matches
+						}
+					}))
+				}
 
 				obj[key] = {
 					isActive         : window.matchMedia(queryList[key]).matches,
 					AddEventListener : function() {
-						window.matchMedia(queryList[key]).addEventListener("change", Updater);
-						Log.EventListenerAdded(queryList[key]);
+						window.matchMedia(queryList[key]).addEventListener("change", Updater)
+						Log.EventListenerAdded(queryList[key])
 					},
 					RemoveEventListener: function() {
-						window.matchMedia(queryList[key]).removeEventListener("change", Updater);
-						Log.EventListenerRemoved(queryList[key]);
-					},
-				};
-			});
+						window.matchMedia(queryList[key]).removeEventListener("change", Updater)
+						Log.EventListenerRemoved(queryList[key])
+					}
+				}
+			})
 			
-			return obj;
-		});
+			return obj
+		})
 
 		//* Initialise event listeners
-		OBJ.Keys(obj).forEach(key => obj[key].AddEventListener());
+		OBJ.Keys(obj).forEach(key => obj[key].AddEventListener())
+
 		return () => {
-			OBJ.Keys(obj).forEach(key => (obj[key].RemoveEventListener()));
-		};
-	}, []);
+			// TODO test
+			Log.Testing("useMediaQueries")
+			Log.Testing("WHY?")
+			OBJ.Keys(obj).forEach(key => (obj[key].RemoveEventListener()))
+		}
+	}, [])
 
 	useEffect(() => {
 		verbose && Log.StateChange(
 			JSON.stringify(state, null, 3),
 			"useMediaQueries"
-		);
-	}, [ state, verbose ]);
+		)
+	}, [ state, verbose ])
 
 	return [
-		state,
-	];
-};
+		state
+	]
+}
 
 export const Media = (...queriesToCombine: Array<keyof typeof queryList>) => {
-	if (!queriesToCombine.length) throw new Error("[GetQuery] no queries passed in");
-	return `@media screen and ${ queriesToCombine.map(query => queryList[query]).join(" and ") }`;
-};
+	if (!queriesToCombine.length) throw new Error("[GetQuery] no queries passed in")
+	return `@media screen and ${ queriesToCombine.map(query => queryList[query]).join(" and ") }`
+}

@@ -1,1 +1,0 @@
-export { LifecycleWrapper } from "./Lifecycle";

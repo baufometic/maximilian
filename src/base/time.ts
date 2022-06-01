@@ -14,20 +14,20 @@ const GetTimeObj = (date: Date) => ({
 	/** getDay() Sunday = 0, Monday = 1, etc */
 	dayOfWeek    : date.getDay(),
 	/** getMilliseconds() */
-	milliSeconds : date.getMilliseconds(),
-});
+	milliSeconds : date.getMilliseconds()
+})
 
 const Time = {
 	Sleep: (ms: number) => {
-		if (ms <= 0) throw new RangeError("[Time.Sleep()] milliseconds must be >0");
-		return new Promise(resolve => setTimeout(resolve, ms));
+		if (ms <= 0) throw new RangeError("[Time.Sleep()] milliseconds must be >0")
+		return new Promise(resolve => setTimeout(resolve, ms))
 	},
 
 	GetObj: () => GetTimeObj(new Date()),
 	
 	GetString: () => {
-		const date = new Date();
-		const tm = GetTimeObj(date);
+		const date = new Date()
+		const tm = GetTimeObj(date)
 
 		return (
 			(tm.hours <= 9 ? "0" : "") +
@@ -38,9 +38,9 @@ const Time = {
 			"-" +
 			(tm.seconds <= 9 ? "0" : "") +
 			tm.seconds
-		);
-	},
-};
+		)
+	}
+}
 
-Object.seal(Time);
-export { Time };
+Object.seal(Time)
+export { Time }
