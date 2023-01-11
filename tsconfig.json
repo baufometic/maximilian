@@ -1,0 +1,40 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
+		"checkJs": true,
+		"declaration": true,
+		"declarationDir": "dts",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"incremental": true,
+		"isolatedModules": true,
+		"jsx": "react-jsx",
+		"lib": [
+			"DOM",
+			"DOM.Iterable",
+			"ESNext",
+			"ES6",
+			"ES2016",
+			"ES2017"
+		],
+		"module": "esnext",
+		"moduleResolution": "node",
+		"noEmit": true,
+		"outDir": "dist",
+		"resolveJsonModule": true,
+		"rootDir": "src",
+		"skipLibCheck": true,
+		"sourceMap": true,
+		"strict": true,
+		"target": "ES5",
+	},
+	"include": [
+		"src"
+	],
+	"exclude": [
+		"dist",
+		"node_modules"
+	]
+}

@@ -1,0 +1,121 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true,
+		"node": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:react-hooks/recommended",
+		"plugin:@typescript-eslint/recommended"
+	],
+	"ignorePatterns": [
+		".env",
+		"**/node_modules/**",
+		"**/dist/*"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": "latest",
+		"sourceType": "module"
+	},
+	"plugins": [
+		"@typescript-eslint",
+		"react",
+		"react-hooks"
+	],
+	"root": true,
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [
+					".js",
+					".jsx",
+					".ts",
+					".tsx"
+				]
+			}
+		},
+		"react": {
+			"version": "detect"
+		}
+	},
+	"rules": {
+		"array-bracket-spacing": [
+			"error",
+			"always"
+		],
+		"comma-dangle": [
+			"error",
+			"never"
+		],
+		"indent": [
+			"error",
+			"tab"
+		],
+		"key-spacing": [
+			"error",
+			{
+				"align": {
+					"beforeColon": true,
+					"afterColon": true,
+					"on": "colon"
+				}
+			}
+		],
+		"linebreak-style": [
+			"error",
+			"unix"
+		],
+		"no-console": "error",
+		"no-multi-spaces": [
+			"error"
+		],
+		"no-restricted-imports": [
+			"error",
+			{
+				"name": "react",
+				"importNames": [
+					"useLayoutEffect"
+				],
+				"message": "useLayoutEffect causes a warning in SSR. Use useEffect"
+			}
+		],
+		"object-curly-spacing": [
+			"error",
+			"always"
+		],
+		"quotes": [
+			"error",
+			"double"
+		],
+		"react/jsx-indent": [
+			"error",
+			"tab"
+		],
+		"react/jsx-indent-props": [
+			"error",
+			"tab"
+		],
+		"react/prop-types": 0,
+		"react/react-in-jsx-scope": "off",
+		"react/jsx-curly-spacing": [
+			"warn",
+			{
+				"when": "always",
+				"children": {
+					"when": "always"
+				}
+			}
+		],
+		"semi": [
+			"error",
+			"always"
+		],
+		"template-curly-spacing": "off"
+	}
+}
