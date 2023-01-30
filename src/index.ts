@@ -1,21 +1,20 @@
-/* BASE EXPORTS */
-
+//*________________________________________ IMPORTS ________________________________________
 //*__________ BASE __________
-export { Random } from "./base/generators";
-export { Log } from "./base/log";
-export { MATH } from "./base/math";
-export { OBJ } from "./base/objects";
-export { MakeObservable } from "./base/observers";
-export { STR } from "./base/strings";
+import { Random } from "./base/generators";
+import { Log } from "./base/log";
+import { MATH } from "./base/math";
+import { OBJ } from "./base/objects";
+import { MakeObservable } from "./base/observers";
+import { STR } from "./base/strings";
 
 //*__________ BROWSER __________
-export { SetFullScreen, ToggleFullScreen } from "./browser/screen";
+import { SetFullScreen, ToggleFullScreen } from "./browser/screen";
 
 //*__________ COMPONENTS __________
-export { DevDashboard } from "./components/DevDashboard";
+import { DevDashboard } from "./components/DevDashboard";
 
 //*__________ HOOKS __________
-export {
+import {
 	Media,
 	useCookies,
 	useMediaQueries,
@@ -26,8 +25,22 @@ export {
 } from "./hooks";
 
 //*__________ STYLING __________
-export { palettes, GetRandomPalette } from "./styling/colours";
-export { SASS } from "./styling/SASS";
+import { palettes, GetRandomPalette } from "./styling/colours";
+import { SASS } from "./styling/SASS";
 
 //*__________ TYPINGS __________
-export type { TLettersLowerCase } from "./typings/strings";
+import type {
+	TLettersLowerCase,
+	THexColour,
+	TRGBAColour,
+	TRGBColour
+} from "./typings";
+
+export {
+	Random, Log, MATH, OBJ, MakeObservable, STR,
+	SetFullScreen, ToggleFullScreen,
+	DevDashboard,
+	Media, useCookies, useMediaQueries, useMediaQueryCustom, useMousePosition, useScreen, useSensors,
+	palettes, GetRandomPalette, SASS,
+	TLettersLowerCase, THexColour, TRGBAColour, TRGBColour
+};

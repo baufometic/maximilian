@@ -2,10 +2,8 @@
 	"compilerOptions": {
 		"allowJs": true,
 		"allowSyntheticDefaultImports": true,
-		"baseUrl": ".",
 		"checkJs": true,
 		"declaration": true,
-		"declarationDir": "dts",
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
 		"incremental": true,
@@ -19,22 +17,19 @@
 			"ES2016",
 			"ES2017"
 		],
-		"module": "esnext",
+		"module": "ESNext",
 		"moduleResolution": "node",
-		"noEmit": true,
 		"outDir": "dist",
 		"resolveJsonModule": true,
-		"rootDir": "src",
 		"skipLibCheck": true,
-		"sourceMap": true,
+		"sourceMap": false,
 		"strict": true,
-		"target": "ES5",
+		"target": "ES5"
 	},
 	"include": [
-		"src"
+		"src/**/*"
 	],
 	"exclude": [
-		"dist",
 		"node_modules"
 	]
 }

@@ -1,9 +1,9 @@
-import { Random } from "src/base/generators";
-import type { TRGB, TRGBA, THex } from "./colours.types";
+import { Random } from "../base/generators";
+import type { TRGBColour, TRGBAColour, THexColour } from "../typings";
 
 const asElementTypes = <T>(et: {
 	[K in keyof T]: {
-		[K2 in keyof T[K]]: TRGB | TRGBA | THex;
+		[K2 in keyof T[K]]: TRGBColour | TRGBAColour | THexColour;
 	};
 }) => et;
 
@@ -119,6 +119,7 @@ export const palettes = {
 		l : "rgb(230,255,255)"
 	}
 } as const;
+
 
 export const GetRandomPalette = () => {
 	type TGroupKeys = keyof typeof palettes;

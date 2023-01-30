@@ -25,7 +25,8 @@ const plugins = [
 	peerDepsExternal(),
 	nodeResolve(),
 	typescript({
-		tsconfig: "./tsconfig.json"
+		tsconfig           : "./tsconfig.json",
+		outputToFilesystem : false
 	}),
 	commonjs()
 ];
@@ -44,6 +45,7 @@ export default [
 			terser()
 		]
 	},
+
 	//* .esm.js
 	{
 		input  : "src/index.ts",
@@ -56,23 +58,24 @@ export default [
 			...plugins,	
 			terser()
 		]
-	}
+	},
+
 	//* Reduce d.ts files to a single file
-	// {
-	// 	input  : "dist/dts/index.d.ts",
-	// 	output : [
-	// 		{
-	// 			file   : packageJson.types,
-	// 			format : "esm"
-	// 		},
-	// 		{
-	// 			file   : packageJson.types,
-	// 			format : "cjs"
-	// 		}
-	// 	],
-	// 	plugins: [
-	// 		...plugins,
-	// 		dts()
-	// 	]
-	// }
+	{
+		input  : "dist/index.d.ts",
+		output : [
+			{
+				file   : packageJson.types,
+				format : "esm"
+			},
+			{
+				file   : packageJson.types,
+				format : "cjs"
+			}
+		],
+		plugins: [
+			...plugins,
+			dts()
+		]
+	}
 ];
